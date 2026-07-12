@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h2>{{ matiere.nom }}</h2>
+
+<ul>
+    {% for cours in cours %}
+        <li>
+    <a href="{% url 'detail_cours' cours.id %}">
+        {{ cours.titre }}
+    </a>
+</li>
+    {% empty %}
+        <li>Aucun cours disponible.</li>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'detail_classe' matiere.classe.id %}">← Retour aux matières</a></p>
+
+{% endblock %}

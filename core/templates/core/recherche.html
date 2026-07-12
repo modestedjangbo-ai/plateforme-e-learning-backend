@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Résultats de la recherche
+</h2>
+
+{% if query %}
+<p>
+    Recherche : <strong>{{ query }}</strong>
+</p>
+{% endif %}
+
+{% for cours in resultats %}
+
+<div class="card mb-3 shadow-sm">
+
+    <div class="card-body">
+
+        <h5>{{ cours.titre }}</h5>
+
+        <p class="text-muted">
+            {{ cours.matiere.nom }}
+        </p>
+
+        <p>
+            {{ cours.contenu|truncatewords:25 }}
+        </p>
+
+        <a href="{% url 'detail_cours' cours.id %}" class="btn btn-success">
+            Ouvrir le cours
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-warning">
+    Aucun cours trouvé.
+</div>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="mb-4">
+        👋 Bonjour {{ user.first_name|default:user.username }}
+    </h1>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>📚</h1>
+
+                    <h4>Mes cours</h4>
+
+                    <p>
+                        Consulter les cours disponibles.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>📝</h1>
+
+                    <h4>Mes exercices</h4>
+
+                    <p>
+                        Accéder aux exercices.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>📊</h1>
+
+                    <h4>Mes statistiques</h4>
+
+                    <p>
+                        Suivre votre progression.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

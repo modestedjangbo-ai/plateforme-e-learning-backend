@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h2>Classe : {{ classe.nom }}</h2>
+
+<h3>Matières</h3>
+
+<ul>
+    {% for matiere in matieres %}
+        <li>
+            <a href="{% url 'detail_matiere' matiere.id %}">
+                {{ matiere.nom }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'accueil' %}">← Retour aux classes</a>
+</p>
+
+{% endblock %}

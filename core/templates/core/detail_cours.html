@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<h2>{{ cours.titre }}</h2>
+
+<p><strong>Matière :</strong> {{ cours.matiere.nom }}</p>
+
+<hr>
+
+<div>
+    {{ cours.contenu|linebreaks }}
+</div>
+
+{% if cours.fichier %}
+    <p>
+        <a href="{{ cours.fichier.url }}" target="_blank">
+            📄 Télécharger le PDF
+        </a>
+    </p>
+{% endif %}
+
+<p>
+    <a href="{% url 'detail_matiere' cours.matiere.id %}">
+        ← Retour aux cours
+    </a>
+</p>
+
+{% endblock %}

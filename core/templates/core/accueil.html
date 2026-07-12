@@ -1,0 +1,147 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<!-- Bannière -->
+<div class="p-5 mb-5 bg-success text-white rounded text-center shadow">
+    <h1 class="display-4 fw-bold">📚 Bienvenue sur Kaay Nu Djang</h1>
+
+    <p class="lead">
+        La plateforme numérique d'apprentissage destinée aux collèges.
+    </p>
+
+    <a href="#classes" class="btn btn-light btn-lg mt-3">
+        Commencer
+    </a>
+</div>
+
+<!-- Classes -->
+<h2 id="classes" class="mb-4 text-center">
+    🎓 Choisissez votre classe
+</h2>
+
+<div class="row">
+
+    {% for classe in classes %}
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-body text-center">
+
+                <h1 class="display-4">🎓</h1>
+
+                <h3 class="mt-3">{{ classe.nom }}</h3>
+
+                <p class="text-muted">
+                    Accéder aux matières
+                </p>
+
+                <a href="{% url 'detail_classe' classe.id %}" class="btn btn-success">
+                    Entrer
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            Aucune classe disponible.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<hr class="my-5">
+
+<!-- Derniers cours -->
+<h2 class="mb-4 text-center">
+    📖 Derniers cours publiés
+</h2>
+
+<div class="row">
+
+    {% for cours in derniers_cours %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow h-100">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{ cours.titre }}
+                </h5>
+
+                <p class="text-muted">
+                    {{ cours.matiere.nom }}
+                </p>
+
+                <p class="card-text">
+                    {{ cours.contenu|truncatewords:20 }}
+                </p>
+
+                <a href="{% url 'detail_cours' cours.id %}" class="btn btn-outline-success">
+                    Lire le cours
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            Aucun cours disponible.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+<div class="row text-center mb-5">
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h1>🎓</h1>
+                <h2>{{ nb_classes }}</h2>
+                <p>Classes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h1>📚</h1>
+                <h2>{{ nb_matieres }}</h2>
+                <p>Matières</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h1>📖</h1>
+                <h2>{{ nb_cours }}</h2>
+                <p>Cours</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
