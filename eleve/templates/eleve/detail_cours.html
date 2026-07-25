@@ -1,0 +1,67 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2>{{ cours.titre }}</h2>
+
+<hr>
+
+<p>
+
+<strong>Matière :</strong>
+
+{{ cours.matiere }}
+
+</p>
+
+<p>
+
+<strong>Enseignant :</strong>
+
+{{ cours.enseignant.get_full_name|default:cours.enseignant.username }}
+
+</p>
+
+<p>
+
+{{ cours.description }}
+
+</p>
+
+<hr>
+
+{{ cours.contenu|safe }}
+
+{% if cours.fichier %}
+
+<hr>
+
+<a
+href="{{ cours.fichier.url }}"
+class="btn btn-primary"
+target="_blank">
+
+📄 Télécharger le PDF
+
+</a>
+
+{% endif %}
+
+{% if cours.video %}
+
+<a
+href="{{ cours.video }}"
+class="btn btn-danger"
+target="_blank">
+
+🎥 Voir la vidéo
+
+</a>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

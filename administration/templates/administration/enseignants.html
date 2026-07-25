@@ -1,0 +1,63 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Gestion des enseignants</h2>
+
+        <a href="{% url 'ajouter_enseignant' %}" class="btn btn-success">
+         ➕ Ajouter un enseignant
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for enseignant in enseignants %}
+
+            <tr>
+                <td>{{ enseignant.last_name }}</td>
+                <td>{{ enseignant.first_name }}</td>
+                <td>{{ enseignant.username }}</td>
+                <td>{{ enseignant.email }}</td>
+
+                <td>
+                    <a href="{% url 'modifier_enseignant' enseignant.id %}"
+                        class="btn btn-warning btn-sm">
+                        Modifier
+                    </a>
+
+                    <a href="{% url 'supprimer_enseignant' enseignant.id %}"
+                        class="btn btn-danger btn-sm">
+                        Supprimer
+                    </a>
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="5" class="text-center">
+                    Aucun enseignant enregistré.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

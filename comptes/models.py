@@ -1,23 +1,6 @@
-'''from django.db import models
-
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
-'''
-'''class Profil(models.Model):
-    ROLES = [
-        ("admin", "Administrateur"),
-        ("enseignant", "Enseignant"),
-        ("eleve", "Élève"),
-    ]
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=ROLES)
-
-    def __str__(self):
-        return f"{self.user.username} ({self.role})" '''
-from django.db import models
-from django.contrib.auth.models import User
+from classes.models import Classe
 
 
 class Profil(models.Model):
@@ -49,11 +32,20 @@ class Profil(models.Model):
         blank=True
     )
 
-    photo = models.CharField(
-    max_length=255,
-    blank=True
-
+    
+    photo = models.ImageField(
+    upload_to="profils/",
+    blank=True,
+    null=True,
+    default="profils/default.png"
     )
+    classe = models.ForeignKey(
+    Classe,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="eleves"
+)
 
     def __str__(self):
         return f"{self.user.get_full_name() or self.user.username} - {self.get_role_display()}"

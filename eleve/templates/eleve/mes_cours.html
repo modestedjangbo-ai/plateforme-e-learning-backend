@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2>📚 Mes cours</h2>
+
+<hr>
+
+{% if cours %}
+
+<div class="row">
+
+{% for c in cours %}
+
+<div class="col-md-6 mb-4">
+
+<div class="card shadow-sm h-100">
+
+<div class="card-body">
+
+<h5 class="card-title">
+
+{{ c.titre }}
+
+</h5>
+
+<p>
+
+<strong>Matière :</strong>
+
+{{ c.matiere }}
+
+</p>
+
+<p>
+
+<strong>Enseignant :</strong>
+
+{{ c.enseignant.get_full_name|default:c.enseignant.username }}
+
+</p>
+
+<a
+href="{% url 'detail_cours_eleve' c.id %}"
+class="btn btn-success">
+
+Consulter
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+
+Aucun cours disponible pour votre classe.
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

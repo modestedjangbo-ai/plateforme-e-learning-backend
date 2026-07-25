@@ -1,16 +1,14 @@
-# Create your views here.
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import redirect, render
 
 
 def connexion(request):
 
     if request.method == "POST":
 
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(
             request,
@@ -18,20 +16,60 @@ def connexion(request):
             password=password
         )
 
-        if user:
-            login(request, user)
-            return redirect("dashboard")
+        if user is not None:
 
-        return render(request, "comptes/login.html", {
-            "erreur": "Nom d'utilisateur ou mot de passe incorrect."
-        })
+            login(request, user)
+
+            try:
+                role = user.profil.role
+
+            except AttributeError:
+
+                logout(request)
+
+                return render(
+                    request,
+                    "comptes/login.html",
+                    {
+                        "erreur": "Aucun profil n'est associé à cet utilisateur."
+                    }
+                )
+
+            if role == "admin":
+                return redirect("dashboard_admin")
+
+            elif role == "enseignant":
+                return redirect("dashboard_enseignant")
+
+            elif role == "eleve":
+                return redirect("dashboard_eleve")
+
+            logout(request)
+
+            return render(
+                request,
+                "comptes/login.html",
+                {
+                    "erreur": "Rôle utilisateur invalide."
+                }
+            )
+
+        return render(
+            request,
+            "comptes/login.html",
+            {
+                "erreur": "Nom d'utilisateur ou mot de passe incorrect."
+            }
+        )
 
     return render(request, "comptes/login.html")
-#Deconnexion
+
+
 def deconnexion(request):
     logout(request)
     return redirect("accueil")
-#Tableau de bord
+
+
 @login_required
 def tableau_de_bord(request):
-    return render(request, "comptes/dashboard.html")
+    return redirect("connexion")

@@ -1,0 +1,39 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+            <h3>Suppression d'un élève</h3>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                Voulez-vous vraiment supprimer l'élève
+                <strong>{{ eleve.first_name }} {{ eleve.last_name }}</strong> ?
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger">
+                    Oui, supprimer
+                </button>
+
+                <a href="{% url 'liste_eleves' %}" class="btn btn-secondary">
+                    Annuler
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow border-danger">
+
+        <div class="card-header bg-danger text-white">
+            <h3>⚠ Supprimer un enseignant</h3>
+        </div>
+
+        <div class="card-body">
+
+            <p class="fs-5">
+                Êtes-vous sûr de vouloir supprimer cet enseignant ?
+            </p>
+
+            <div class="alert alert-warning">
+
+                <strong>Nom :</strong> {{ enseignant.last_name }}<br>
+
+                <strong>Prénom :</strong> {{ enseignant.first_name }}<br>
+
+                <strong>Nom d'utilisateur :</strong> {{ enseignant.username }}<br>
+
+                <strong>Email :</strong> {{ enseignant.email }}
+
+            </div>
+
+            <p class="text-danger">
+                Cette opération est irréversible.
+            </p>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    🗑 Supprimer définitivement
+                </button>
+
+                <a href="{% url 'liste_enseignants' %}"
+                   class="btn btn-secondary">
+                    Annuler
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

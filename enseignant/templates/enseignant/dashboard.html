@@ -1,0 +1,152 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+Tableau de bord Enseignant
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="mb-4">
+        <h2>👨‍🏫 Tableau de bord Enseignant</h2>
+        <p class="text-muted">
+            Bienvenue {{ request.user.get_full_name|default:request.user.username }}
+        </p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <h1>{{ nb_cours }}</h1>
+                    <h5>📚 Mes cours</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <h1>{{ nb_pdf }}</h1>
+                    <h5>📄 Documents PDF</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <h1>{{ nb_video }}</h1>
+                    <h5>🎥 Vidéos</h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header">
+            <h5>⚡ Actions rapides</h5>
+        </div>
+
+        <div class="card-body">
+
+            <a href="{% url 'nouveau_cours' %}" class="btn btn-success m-2">
+                ➕ Nouveau cours
+            </a>
+
+            <a href="{% url 'mes_cours_enseignant' %}" class="btn btn-primary m-2">
+                📚 Mes cours
+            </a>
+        
+
+            <a href="#" class="btn btn-info m-2">
+                👤 Mon profil
+            </a>
+
+            <a href="{% url 'deconnexion' %}" class="btn btn-danger m-2">
+                🚪 Déconnexion
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header">
+            <h5>📚 Mes derniers cours</h5>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                <tr>
+                    <th>Titre</th>
+                    <th>Classe</th>
+                    <th>Matière</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for cours in derniers_cours %}
+
+                <tr>
+
+                    <td>{{ cours.titre }}</td>
+
+                    <td>{{ cours.classe }}</td>
+
+                    <td>{{ cours.matiere }}</td>
+
+                    <td>{{ cours.date_publication|date:"d/m/Y" }}</td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'voir_cours' cours.id %}"
+                            class="btn btn-outline-primary btn-sm">
+
+                            Voir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+
+                        Aucun cours publié.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

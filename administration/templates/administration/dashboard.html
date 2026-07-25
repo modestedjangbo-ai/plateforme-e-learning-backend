@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Administration</h2>
+    <hr>
+
+    <div class="list-group">
+        <a href="{% url 'liste_enseignants' %}" class="list-group-item list-group-item-action"> 
+            👨‍🏫 Enseignants </a>
+        <a href="{% url 'liste_eleves' %}" class="list-group-item list-group-item-action"> 👨‍🎓 Élèves
+        </a>
+        
+        <a href="{% url 'liste_classes' %}" class="btn btn-primary">
+            📚 Gérer les classes
+        </a>
+        
+        <a href="{% url 'liste_matieres' %}" class="btn btn-primary">
+            📘 Gérer les matières
+        </a>
+        
+        <a href="{% url 'liste_cours' %}" class="btn btn-primary">
+            📚 Gérer les cours
+        </a>
+        <a href="{% url 'statistiques' %}" class="list-group-item list-group-item-action">📊 Statistiques</a> 
+    </div>
+</div>
+{% endblock %}

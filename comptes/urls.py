@@ -5,4 +5,5 @@ urlpatterns = [
     path("connexion/", views.connexion, name="connexion"),
     path("deconnexion/", views.deconnexion, name="deconnexion"),
     path("dashboard/", views.tableau_de_bord, name="dashboard"),
+   
 ]

@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning">
+
+            <h2>✏ Modifier le cours</h2>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <hr>
+
+                <button type="submit" class="btn btn-success">
+                    💾 Enregistrer les modifications
+                </button>
+                messages.success(
+    request,
+    "Le cours a été modifié avec succès."
+)
+
+                <a href="{% url 'mes_cours' %}" class="btn btn-secondary">
+                    ↩ Retour
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

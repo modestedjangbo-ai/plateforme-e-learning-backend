@@ -1,0 +1,113 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>📚 Mes cours</h2>
+
+        <a href="{% url 'nouveau_cours' %}" class="btn btn-success">
+           ➕ 
+           <i class="bi bi-plus-circle"></i> Nouveau cours
+        </a>
+
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-success">
+
+                    <tr>
+                        <th>Titre</th>
+                        <th>Matière</th>
+                        <th>Date</th>
+                        <th width="260">Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for cours in cours %}
+
+                    <tr>
+
+                        <td>{{ cours.titre }}</td>
+
+                        <td>{{ cours.matiere.nom }}</td>
+
+                        <td>{{ cours.date_publication|date:"d/m/Y" }}</td>
+
+                        <td>
+
+                           <!-- <a href="{% url 'voir_cours' cours.id %}"
+                               class="btn btn-primary btn-sm">
+
+                                👁 Voir
+
+                            </a>
+
+                            <a href="{% url 'modifier_cours' cours.id %}"
+                               class="btn btn-warning btn-sm">
+
+                                ✏ Modifier
+
+                            </a>
+
+                            <a href="{% url 'supprimer_cours' cours.id %}"
+                               class="btn btn-danger btn-sm">
+
+                                🗑 Supprimer
+
+                            </a> -->
+                            <a href="{% url 'voir_cours' cours.id %}"
+                               class="btn btn-primary btn-sm">
+
+                                <i class="bi bi-eye"></i> Voir
+                            </a>
+                            <a href="{% url 'modifier_cours' cours.id %}"
+                               class="btn btn-warning btn-sm">
+
+                                <i class="bi bi-pencil-square"></i> Modifier
+                            </a>
+                            <a href="{% url 'supprimer_cours' cours.id %}"
+                               class="btn btn-danger btn-sm">
+
+                                <i class="bi bi-trash"></i> Supprimer
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="4" class="text-center">
+
+                            Aucun cours disponible.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
