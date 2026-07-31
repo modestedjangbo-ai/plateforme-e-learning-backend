@@ -1,20 +1,45 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
 from .models import Enrollment
-from .serializers import EnrollmentSerializer
+from courses.serializers import CourseSerializer
 
 
-@api_view(['POST'])
-def enroll_course(request):
 
-    serializer = EnrollmentSerializer(data=request.data)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def student_dashboard(request):
 
-    if serializer.is_valid():
-        serializer.save()
+    student = request.user
 
-        return Response({
-            "message": "Inscription réussie",
-            "data": serializer.data
-        })
 
-    return Response(serializer.errors, status=400)
+    enrollments = Enrollment.objects.filter(
+        student=student
+    )
+
+
+    courses = []
+
+
+    for enrollment in enrollments:
+
+        courses.append(
+            enrollment.course
+        )
+
+
+    serializer = CourseSerializer(
+        courses,
+        many=True
+    )
+
+
+    return Response({
+
+        "username": student.username,
+
+        "courses": serializer.data
+
+    })

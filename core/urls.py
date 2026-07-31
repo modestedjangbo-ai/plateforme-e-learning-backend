@@ -1,15 +1,31 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
+
+
+def home(request):
+    return JsonResponse({
+        "message": "Bienvenue sur l'API de la plateforme e-learning",
+        "status": "success"
+    })
 
 
 urlpatterns = [
+    # Accueil
+    path("", home, name="home"),
 
-    path('admin/', admin.site.urls),
+    # Administration Django
+    path("admin/", admin.site.urls),
 
-    path('api/courses/', include('courses.urls')),
+    # Comptes / authentification
+    path("api/", include("accounts.urls")),
 
-    path('api/enrollement/', include('enrollement.urls')),
+    # Cours
+    path("api/courses/", include("courses.urls")),
 
-    path('api/', include('accounts.urls')),
+    # Inscriptions
+    path("api/enrollement/", include("enrollement.urls")),
 
+    # Leçons
+    path("api/lessons/", include("lessons.urls")),
 ]

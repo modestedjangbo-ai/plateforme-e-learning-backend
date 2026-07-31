@@ -1,7 +1,14 @@
 from django.urls import path
-from .views import enroll_course
+from .views import student_dashboard
+
 
 
 urlpatterns = [
-    path('enroll/', enroll_course),
+
+    path(
+        'dashboard/',
+        student_dashboard,
+        name='student-dashboard'
+    ),
+
 ]
