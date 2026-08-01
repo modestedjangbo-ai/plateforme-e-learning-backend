@@ -39,7 +39,6 @@ def course_lessons(request, id):
 
 
 
-
 @api_view(['GET'])
 def admin_stats(request):
 
@@ -59,7 +58,6 @@ def admin_stats(request):
     nombre_inscriptions = Enrollment.objects.count()
 
 
-
     return Response({
 
         "students": nombre_etudiants,
@@ -69,5 +67,35 @@ def admin_stats(request):
         "courses": nombre_cours,
 
         "enrollments": nombre_inscriptions
+
+    })
+
+
+
+
+
+# ==============================
+# STATISTIQUES ENSEIGNANT
+# ==============================
+
+@api_view(['GET'])
+def teacher_stats(request):
+
+    nombre_cours = Course.objects.count()
+
+
+    nombre_etudiants = Enrollment.objects.count()
+
+
+    nombre_quiz = 0
+
+
+    return Response({
+
+        "cours": nombre_cours,
+
+        "étudiants": nombre_etudiants,
+
+        "quiz": nombre_quiz
 
     })
