@@ -11,7 +11,7 @@ urlpatterns = [
 
 
     path(
-        'api/register/',
+        'api/',
         include('accounts.urls')
     ),
 
@@ -34,7 +34,6 @@ urlpatterns = [
     ),
 
 
-    # API CONTACT
     path(
         'api/contact/',
         include('contact.urls')
