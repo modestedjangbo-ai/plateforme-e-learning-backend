@@ -21,7 +21,6 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 
-
 @api_view(['GET'])
 def course_lessons(request, id):
 
@@ -35,7 +34,6 @@ def course_lessons(request, id):
     )
 
     return Response(serializer.data)
-
 
 
 
@@ -72,8 +70,6 @@ def admin_stats(request):
 
 
 
-
-
 # ==============================
 # STATISTIQUES ENSEIGNANT
 # ==============================
@@ -83,9 +79,7 @@ def teacher_stats(request):
 
     nombre_cours = Course.objects.count()
 
-
     nombre_etudiants = Enrollment.objects.count()
-
 
     nombre_quiz = 0
 

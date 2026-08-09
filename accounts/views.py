@@ -4,10 +4,16 @@ from rest_framework.response import Response
 
 from django.contrib.auth import authenticate
 
-from .serializers import RegisterSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from .models import User
+from .serializers import RegisterSerializer, UserSerializer
 
 
+
+# ==========================
+# INSCRIPTION UTILISATEUR
+# ==========================
 
 class RegisterView(generics.CreateAPIView):
 
@@ -17,13 +23,15 @@ class RegisterView(generics.CreateAPIView):
 
 
 
-
+# ==========================
+# CONNEXION UTILISATEUR
+# ==========================
 
 @api_view(['POST'])
 def login_view(request):
 
-    username = request.data.get('username')
-    password = request.data.get('password')
+    username = request.data.get("username")
+    password = request.data.get("password")
 
 
     user = authenticate(
@@ -34,9 +42,14 @@ def login_view(request):
 
     if user is not None:
 
+        refresh = RefreshToken.for_user(user)
+
+
         return Response({
 
-            "message": "Connexion réussie",
+            "refresh": str(refresh),
+
+            "access": str(refresh.access_token),
 
             "username": user.username,
 
@@ -45,8 +58,24 @@ def login_view(request):
         })
 
 
-    return Response({
+    return Response(
 
-        "error": "Nom d'utilisateur ou mot de passe incorrect"
+        {
+            "error": "Nom d'utilisateur ou mot de passe incorrect"
+        },
 
-    }, status=400)
+        status=400
+
+    )
+
+
+
+# ==========================
+# LISTE DES UTILISATEURS ADMIN
+# ==========================
+
+class UserListView(generics.ListAPIView):
+
+    queryset = User.objects.all()
+
+    serializer_class = UserSerializer

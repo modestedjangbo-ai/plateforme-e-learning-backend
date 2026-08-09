@@ -38,5 +38,9 @@ urlpatterns = [
         'api/contact/',
         include('contact.urls')
     ),
+    path(
+    'api/quiz/',
+    include('quiz.urls')
+),
 
 ]
